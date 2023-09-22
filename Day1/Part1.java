@@ -2266,17 +2266,23 @@ public class Part1 {
                 int max = 0;
                 
                 for (int i = 0; i < elves.length(); i++) {
+                    System.out.println(currentNum);
+                    System.out.println(calCount);
                     if (elves.charAt(i) != '\n') {
                         currentNum += elves.charAt(i);
-                    } else if (elves.charAt(i+1) == '\n' && elves.charAt(i) == '\n' && calCount > max) {
-                        max = calCount;
-                        calCount = 0;
-                    } else {
+                        if (calCount > max && elves.charAt(i+1) == '\n') {
+                            max = calCount;
+                        }
+                    } else if (currentNum != "") {
                         int Count = Integer.parseInt(currentNum);
                         calCount += Count;
                         currentNum = "";
+                    } else {
+                        calCount = 0;
                     }
                 }
+
+                System.out.println(max);
 
             }
 }
