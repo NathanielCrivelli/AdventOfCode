@@ -2,6 +2,21 @@ package Day1;
 
 public class Part1 {
     public static void main(String args[]) {
+        String test = "1000\n" + //
+                "2000\n" + //
+                "3000\n" + //
+                "\n" + //
+                "4000\n" + //
+                "\n" + //
+                "5000\n" + //
+                "6000\n" + //
+                "\n" + //
+                "7000\n" + //
+                "8000\n" + //
+                "9000\n" + //
+                "\n" + //
+                "10000";
+
         String elves = "4514\n" + //
                 "8009\n" + //
                 "6703\n" + //
@@ -2270,15 +2285,17 @@ public class Part1 {
                     System.out.println(calCount);
                     if (elves.charAt(i) != '\n') {
                         currentNum += elves.charAt(i);
-                        if (calCount > max && elves.charAt(i+1) == '\n') {
-                            max = calCount;
-                        }
                     } else if (currentNum != "") {
                         int Count = Integer.parseInt(currentNum);
                         calCount += Count;
                         currentNum = "";
-                    } else {
-                        calCount = 0;
+                    } else if (elves.charAt(i) == '\n' && elves.charAt(i-1) == '\n'){
+                        if (calCount > max) {
+                            max = calCount;
+                            calCount = 0;
+                        } else {
+                            calCount = 0;
+                        }
                     }
                 }
 
