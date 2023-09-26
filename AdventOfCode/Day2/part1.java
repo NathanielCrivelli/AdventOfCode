@@ -1,2578 +1,2549 @@
 package Day2;
 
+import java.util.HashMap;
+
 public class part1 {
     private static int pointTotal = 0;
+    private static String temper = "";
 
-
+    private static HashMap<String, Integer> points = new HashMap<String, Integer>();
 
 
     public static void main(String args[]){
+        setMap();
         calculate();
         System.out.println(pointTotal);
     }
 
+    private static void setMap(){
+        points.put("A X", 1+3);
+        points.put("A Y", 2+6);
+        points.put("A Z", 3);
 
+        points.put("B X", 1);
+        points.put("B Y", 2+3);
+        points.put("B Z", 3+6);
+
+        points.put("C X", 1+6);
+        points.put("C Y", 2);
+        points.put("C Z", 3+3);
+    }
 
 
     private static void calculate(){
-        for(int i=0; i</*input().length()*/3; i++){
-            if(i == 0 || i%4 == 0){
-                winLoseDraw(i);
+        for (int i=0; i < input().length()-1; i++){
+            if(i == 0 || input().charAt(i-1) == '\n'){
+                temper = input().substring(i, i+3);
+
+                pointTotal += points.get(temper);
             }
-            if(i%3 == 0){
-                whatIsGuyAt(i);
-            }
-            System.out.println(pointTotal);
         }
     }
+    //tie = 3; win = 6
 
-
-
-
-    private static void whatIsGuyAt(int i){
-        switch(input().charAt(i)){
-            case 'X' -> pointTotal += 1;
-            case 'Y' -> pointTotal += 2;
-            case 'Z' -> pointTotal += 3;
-        }
-    }
-
-
-
-
-    private static void winLoseDraw(int i){
-        //check for draw
-        if(input().charAt(i) == input().charAt(i+2)){
-            pointTotal += 3;
-        }
-        //check for win
-        else if(winConditions(input().charAt(i), input().charAt(i+2))){
-            pointTotal += 6;
-        }
-    }
-
-
-
-
-    //rock = A,X
-    //paper = B,Y
-    //scissors = C,Z
-    private static boolean winConditions(char first, char second){
-        if (first == 'A' && second == 'Y')
-            return true;
-        else if(first == 'B' && second == 'Z')
-            return true;
-        else if(first == 'C' && second == 'X')
-            return true;
-        return false;
-    }
-
-
-
-
+    //rock = A,X 1
+    //paper = B,Y 2 
+    //scissors = C,Z 3
     private static String input() {
-        return """
-        A Z
-        A Z
-        C Y
-        A X
-        A X
-        A Z
-        C X
-        A X
-        C Y
-        A Z
-        B Y
-        B Y
-        C X
-        C Y
-        C X
-        B Y
-        A Y
-        C Y
-        B Y
-        B Z
-        B Y
-        C X
-        A Z
-        C Y
-        B Y
-        B Y
-        A Z
-        B Y
-        B Y
-        B Y
-        B Z
-        B Y
-        A Z
-        B Y
-        C Y
-        B Y
-        B Z
-        C X
-        B Z
-        A X
-        B Y
-        B Z
-        C Y
-        A Z
-        C Y
-        A Z
-        B Y
-        C Y
-        A Z
-        A Z
-        B Y
-        C Y
-        C X
-        A Z
-        B Z
-        A Z
-        B Y
-        C X
-        B Y
-        B Y
-        B Y
-        A Y
-        B Z
-        C Y
-        C X
-        A Z
-        B Y
-        B Y
-        B X
-        A Z
-        C X
-        B Y
-        B Y
-        A Z
-        A Z
-        A X
-        A X
-        B Y
-        C X
-        A X
-        A Z
-        A Z
-        B Y
-        C Y
-        B Z
-        A X
-        B Z
-        A Z
-        B Y
-        A Z
-        C Y
-        A Z
-        A X
-        B Y
-        C Y
-        B Y
-        A X
-        B Z
-        C Y
-        B Y
-        B Y
-        A Z
-        A X
-        A X
-        B Y
-        C Y
-        B X
-        B Z
-        C X
-        B Y
-        A Y
-        B Y
-        B Y
-        B Y
-        A X
-        C Y
-        A Z
-        C Y
-        C Y
-        B Z
-        B Y
-        A Z
-        A Z
-        A Z
-        B Y
-        C Y
-        B Z
-        C X
-        C Y
-        B Z
-        A X
-        A Z
-        C Y
-        B Y
-        C Y
-        C Y
-        C Y
-        B Y
-        B X
-        B Y
-        B Y
-        C Y
-        A X
-        B Z
-        B X
-        C X
-        B X
-        C Y
-        B Z
-        B Y
-        A X
-        C Y
-        C Y
-        C X
-        B Z
-        B Y
-        A Y
-        B Z
-        A Z
-        B Y
-        B Y
-        B Z
-        B Z
-        C Y
-        A Z
-        A X
-        A X
-        C Y
-        B Y
-        A Z
-        B Z
-        A X
-        A Z
-        B Z
-        C Y
-        C Z
-        A X
-        A Y
-        B Y
-        C Y
-        B Y
-        C Y
-        B Z
-        B Y
-        A Z
-        C Y
-        B Z
-        B Y
-        A Z
-        A Y
-        B Y
-        B Y
-        C Y
-        A Z
-        C Y
-        B Y
-        B Y
-        A X
-        A Z
-        A Z
-        B Y
-        B Y
-        B Z
-        C Y
-        C X
-        B Z
-        A Y
-        B Z
-        A X
-        C X
-        A Y
-        B Z
-        B Z
-        A X
-        C X
-        C X
-        A Z
-        C Y
-        A X
-        A X
-        C X
-        A X
-        B Z
-        C Z
-        B Z
-        B Y
-        B Y
-        A Z
-        A Z
-        B Y
-        A Z
-        C Y
-        C X
-        B Y
-        A X
-        A X
-        B Z
-        C Y
-        C Y
-        A X
-        B Z
-        A X
-        C X
-        C X
-        B Z
-        C X
-        B Z
-        A X
-        A Y
-        A X
-        A Z
-        A X
-        B Y
-        C Y
-        A X
-        C Y
-        A Z
-        B Z
-        A Z
-        C Y
-        A X
-        A Z
-        B Y
-        A Z
-        B Z
-        B Z
-        A Z
-        B Z
-        A X
-        B Y
-        B Z
-        C X
-        B Y
-        B Y
-        B Y
-        B Y
-        A X
-        B Z
-        B Z
-        A Z
-        A Z
-        C Y
-        B Y
-        C X
-        A X
-        B Y
-        B Y
-        C X
-        B Y
-        A X
-        C Y
-        A Z
-        B Y
-        A Y
-        B Z
-        B Y
-        A Z
-        A X
-        B Z
-        C Y
-        A Z
-        C Y
-        C X
-        B Y
-        B Z
-        C X
-        A Y
-        B Z
-        A Y
-        B Z
-        B Z
-        B Y
-        B Z
-        C X
-        B Y
-        A X
-        B Z
-        A Z
-        B Y
-        A Z
-        C Y
-        C Y
-        C X
-        C X
-        A X
-        C X
-        A X
-        A X
-        B Z
-        B Y
-        B Y
-        B Y
-        B Y
-        C X
-        C X
-        A Z
-        A Z
-        C X
-        C X
-        C Y
-        C Y
-        C Y
-        B Y
-        A Z
-        C Y
-        B Z
-        B Z
-        B Y
-        C X
-        C X
-        C Y
-        C Y
-        C X
-        B Z
-        B Z
-        B Y
-        C Y
-        B Y
-        A Z
-        C Y
-        A X
-        B Y
-        C Y
-        C Y
-        C Y
-        B Y
-        A Z
-        B Y
-        A X
-        B Z
-        C X
-        A Z
-        C X
-        A Z
-        B Z
-        C Y
-        C Y
-        C Y
-        C X
-        B Z
-        C X
-        B Y
-        B Z
-        C X
-        B X
-        A Z
-        B Z
-        B Y
-        C Y
-        B Z
-        C Y
-        A X
-        B Z
-        C Y
-        C Y
-        B Z
-        B Y
-        C Y
-        B Z
-        C Y
-        A Z
-        C X
-        C X
-        C Y
-        A Z
-        C Z
-        C Y
-        B Y
-        C Y
-        B Y
-        B Y
-        B Z
-        C X
-        C X
-        B Z
-        B Z
-        B Z
-        A Z
-        B Y
-        B Y
-        A X
-        B Y
-        C Y
-        B Y
-        C X
-        C X
-        B Y
-        B Y
-        A Y
-        B Z
-        B Y
-        B Y
-        C Y
-        A Z
-        C X
-        A Y
-        B Y
-        B Z
-        B Y
-        A Y
-        C Y
-        A Y
-        A Z
-        B Y
-        A Z
-        C Y
-        C Y
-        B Y
-        A Z
-        B Y
-        B Y
-        A Z
-        B Z
-        B Y
-        C X
-        C Y
-        B Z
-        B Y
-        B Y
-        A Z
-        C Z
-        A Z
-        A X
-        C X
-        B Z
-        B Z
-        C X
-        C Y
-        B Y
-        B X
-        A X
-        C Y
-        B Z
-        B Y
-        C X
-        B Y
-        A Z
-        A Z
-        A X
-        C Y
-        B Z
-        B Y
-        C X
-        C X
-        B Y
-        A Z
-        C Z
-        B Y
-        A Z
-        C Y
-        B Y
-        C X
-        A Z
-        A Z
-        A X
-        C X
-        A X
-        C X
-        C X
-        A Z
-        C X
-        B Y
-        A Z
-        B Y
-        B Y
-        C Y
-        C X
-        A Z
-        B Z
-        B Y
-        B Y
-        A Y
-        A Z
-        B Y
-        A Z
-        B Z
-        B Y
-        C Y
-        A Z
-        B Y
-        B Y
-        B Y
-        C Y
-        C X
-        A X
-        A Z
-        B Z
-        B Y
-        C Y
-        B Z
-        C X
-        B Y
-        C X
-        A Z
-        B Y
-        B X
-        B Y
-        A Y
-        A X
-        A X
-        C X
-        C X
-        B Y
-        B X
-        C Y
-        A Z
-        B Z
-        C Y
-        C Y
-        B Y
-        A Z
-        C X
-        A Z
-        C Y
-        B Z
-        B X
-        C X
-        B X
-        C X
-        B Y
-        C Y
-        C Y
-        B Z
-        B Y
-        B Z
-        B Z
-        A Z
-        B Y
-        A Y
-        B Z
-        C X
-        C Y
-        C X
-        A Z
-        B Z
-        C Y
-        B Y
-        B Z
-        C X
-        B Y
-        A Y
-        A X
-        A X
-        C Y
-        B X
-        C X
-        B Z
-        A Z
-        A Y
-        B Z
-        C X
-        C X
-        B Y
-        A X
-        B Z
-        C Y
-        B X
-        B Z
-        C Y
-        B Y
-        C Y
-        B Z
-        B Y
-        B Z
-        B Y
-        C X
-        B Y
-        C X
-        B Z
-        B Z
-        C X
-        B Z
-        A X
-        B X
-        B Y
-        A X
-        B Z
-        C X
-        B Z
-        B Y
-        B Y
-        C X
-        A Y
-        B Z
-        B Z
-        B Y
-        B Y
-        B Z
-        C Y
-        B Z
-        C Y
-        C X
-        A Z
-        C X
-        A X
-        C Y
-        B Y
-        C X
-        A Z
-        B Y
-        A Z
-        A Z
-        B X
-        C Y
-        B Z
-        C Y
-        B Y
-        B Z
-        A X
-        B Z
-        A X
-        C X
-        B Z
-        B Y
-        C X
-        C Y
-        C Y
-        B X
-        C X
-        C X
-        B Z
-        C Y
-        B Z
-        B Y
-        B Z
-        C Y
-        B Y
-        C Y
-        C X
-        B Y
-        B Y
-        B Z
-        A Z
-        C X
-        A Z
-        B Y
-        B Z
-        A Z
-        C Y
-        A Z
-        B Y
-        A Z
-        A Z
-        C Y
-        A Y
-        B Y
-        A Y
-        C X
-        B Y
-        C X
-        B Z
-        C Y
-        A Z
-        C X
-        C X
-        B Z
-        C Z
-        C Z
-        B Y
-        B Y
-        C Y
-        C Y
-        A Z
-        C Y
-        C Y
-        C Y
-        A Z
-        B Z
-        C Y
-        B Y
-        C Y
-        C X
-        C X
-        B X
-        B Y
-        C Y
-        A Y
-        B Y
-        B Z
-        B Y
-        A Y
-        B Y
-        B X
-        C X
-        C Z
-        C Y
-        C Y
-        C Y
-        B Z
-        B X
-        C Y
-        B Z
-        C X
-        C Y
-        A Z
-        A Y
-        B Y
-        C X
-        A Z
-        B Y
-        C Y
-        B Z
-        A Z
-        A Z
-        B Y
-        A Z
-        C Y
-        A X
-        C Y
-        B Z
-        B Z
-        B Z
-        B Y
-        B Y
-        A Z
-        A Z
-        B Y
-        C X
-        A Z
-        C Y
-        B Y
-        A Z
-        C Y
-        A Z
-        B Z
-        B Z
-        A Y
-        B Y
-        B Y
-        B Z
-        C Z
-        B Y
-        B X
-        B Y
-        C X
-        B Z
-        C Y
-        B Z
-        A Y
-        B Z
-        A Z
-        A X
-        A Z
-        C X
-        C X
-        B Y
-        C X
-        C Y
-        A Z
-        B Z
-        B Y
-        A Z
-        B Z
-        B Z
-        B Z
-        C Y
-        B Y
-        A X
-        C Y
-        C Y
-        C X
-        A X
-        C Y
-        B Y
-        C X
-        B Z
-        A Y
-        B X
-        B Y
-        A Z
-        B Y
-        B Y
-        B Y
-        B Z
-        C X
-        B Z
-        B Z
-        C X
-        B Y
-        A Y
-        B Y
-        C Y
-        A Z
-        C Z
-        B Y
-        B Z
-        B Z
-        C Y
-        A Z
-        C Y
-        C X
-        C Y
-        B Y
-        A X
-        A X
-        B Z
-        C Y
-        B Z
-        B Y
-        A Y
-        C X
-        A Z
-        B Z
-        C Y
-        C Z
-        C X
-        B Y
-        C X
-        A Y
-        A Y
-        B Z
-        C X
-        B X
-        C X
-        B Y
-        B Z
-        B Z
-        B Y
-        C Y
-        B Y
-        B Y
-        A Z
-        B Z
-        B Y
-        C X
-        B Z
-        B Y
-        B Y
-        C Y
-        C Z
-        C X
-        B Y
-        A X
-        C Y
-        C X
-        B Z
-        C Y
-        A X
-        B Y
-        A Y
-        B Y
-        C X
-        C Y
-        C X
-        A X
-        B Z
-        C X
-        B Y
-        A Z
-        C X
-        B Y
-        A Z
-        B Y
-        B Y
-        B Y
-        A Z
-        A X
-        C X
-        C Y
-        C Y
-        B Y
-        B Y
-        B Z
-        A Y
-        C X
-        C X
-        B Y
-        B Y
-        B Z
-        A X
-        C X
-        C X
-        B X
-        A X
-        B Z
-        B Y
-        C X
-        A X
-        B Y
-        C Y
-        A X
-        B Y
-        C X
-        B Z
-        C Z
-        B X
-        C Y
-        B Y
-        C Y
-        A Z
-        C Y
-        B Z
-        C X
-        B Z
-        C X
-        C Y
-        C X
-        C Y
-        C Z
-        C X
-        C X
-        B Y
-        C Y
-        C X
-        C X
-        B Z
-        B Z
-        A X
-        C Y
-        C Z
-        B Y
-        C Z
-        C Y
-        C X
-        C X
-        B Y
-        C Y
-        A Y
-        B Y
-        A Y
-        B Y
-        B Y
-        B Y
-        C Y
-        C Z
-        B Y
-        C X
-        C X
-        B Z
-        B Y
-        B Z
-        C Y
-        B Z
-        C X
-        B Z
-        B Y
-        B Y
-        A Z
-        A X
-        B X
-        A X
-        C X
-        C Y
-        B Y
-        A X
-        B Z
-        B Y
-        B Y
-        A X
-        C X
-        C X
-        B Y
-        B Y
-        C Y
-        C Y
-        B Z
-        B Y
-        B Y
-        B Y
-        C Y
-        A X
-        B Y
-        C Y
-        B Z
-        B Y
-        B Y
-        B Z
-        B Y
-        B Y
-        B Z
-        B Y
-        B Y
-        C Y
-        A Z
-        B Z
-        A Y
-        B Y
-        C Y
-        B Z
-        B Y
-        B Y
-        C X
-        A X
-        C Z
-        C X
-        B Y
-        B Z
-        C Y
-        C X
-        B Z
-        A Z
-        A Z
-        C Y
-        A Z
-        B Y
-        B Y
-        B Z
-        B Y
-        C Y
-        B Z
-        C Y
-        B Z
-        B Z
-        B Y
-        C X
-        B Y
-        B Z
-        A X
-        C X
-        C X
-        B Z
-        B Z
-        C X
-        B Y
-        A Z
-        B Y
-        B Z
-        C Y
-        B Y
-        A Z
-        B Z
-        B Y
-        B Y
-        B Y
-        C X
-        C Y
-        A Z
-        B Y
-        B Y
-        A Z
-        A Z
-        A Z
-        A X
-        B X
-        A Z
-        C Y
-        C X
-        A X
-        B Z
-        A X
-        C X
-        B Z
-        B Y
-        B Y
-        C X
-        A Z
-        C Y
-        C X
-        A Y
-        C X
-        A Z
-        B Z
-        B Z
-        B Y
-        C Y
-        B Z
-        A Z
-        A Z
-        C Y
-        B Y
-        B Z
-        A Z
-        A Z
-        B Z
-        B Y
-        A Z
-        C Y
-        A Z
-        A Z
-        B Y
-        B Z
-        B Z
-        A X
-        A X
-        B Y
-        B Z
-        B Z
-        C X
-        B Z
-        C Z
-        B Y
-        B Y
-        B Y
-        B Z
-        A X
-        A Z
-        B Y
-        A X
-        B Y
-        B Y
-        C X
-        C X
-        C Y
-        C Y
-        A Z
-        A X
-        B Y
-        A Z
-        B Z
-        B Y
-        C X
-        B Y
-        B X
-        C X
-        A X
-        A Z
-        C Y
-        C X
-        C Y
-        B Y
-        B Y
-        A X
-        A Y
-        B Y
-        A Y
-        C Y
-        C X
-        B Y
-        B Y
-        B Z
-        C X
-        C X
-        B Y
-        C X
-        B Z
-        C Y
-        A X
-        A Z
-        A Z
-        B Y
-        A Y
-        C Y
-        C X
-        C Y
-        C Y
-        B Y
-        B Y
-        A Z
-        C X
-        A X
-        B Y
-        B Y
-        B Y
-        B Z
-        A Z
-        B Y
-        B Y
-        A Z
-        B Y
-        A Z
-        C X
-        B Z
-        C Y
-        B Y
-        B Y
-        A X
-        B Y
-        A X
-        B Y
-        B Z
-        C X
-        B Z
-        B Y
-        C X
-        C Y
-        C Y
-        A X
-        A X
-        B Z
-        B Z
-        B Y
-        C X
-        A Z
-        C Y
-        C Y
-        C Y
-        B Z
-        B Z
-        B Y
-        A Z
-        C Y
-        A X
-        A Z
-        C Y
-        B Z
-        B Y
-        B Y
-        A Z
-        B Y
-        A Z
-        C X
-        A X
-        B Z
-        B Y
-        B Y
-        B Z
-        A Z
-        C X
-        B Y
-        C X
-        B Z
-        C X
-        A Z
-        B Y
-        A Z
-        A Z
-        B Y
-        C Y
-        C X
-        C Y
-        A X
-        C Y
-        B Y
-        B Z
-        C X
-        C Y
-        A X
-        B Z
-        B Y
-        C Y
-        A X
-        B Z
-        A Y
-        B Z
-        B Y
-        B Z
-        A X
-        A Z
-        A X
-        B Z
-        C Y
-        B Y
-        A Y
-        B Z
-        A Z
-        C Y
-        C X
-        B Z
-        B Y
-        C Y
-        B Z
-        C X
-        C Y
-        A X
-        B Z
-        B Z
-        B Z
-        B Z
-        B Y
-        C X
-        B Y
-        C X
-        A Z
-        A Z
-        C Y
-        A Y
-        B Y
-        C X
-        A Z
-        B Z
-        C X
-        C X
-        A X
-        B Y
-        C X
-        A Z
-        B Y
-        B Y
-        B Y
-        B Y
-        C X
-        C Y
-        C Y
-        B Y
-        A Z
-        B Y
-        B Z
-        B Z
-        B Y
-        A X
-        B Z
-        B Z
-        C X
-        C X
-        C Y
-        B Y
-        C Y
-        B Y
-        B Y
-        B Z
-        B X
-        C X
-        C Y
-        A Z
-        B Z
-        B Y
-        A X
-        B Z
-        A Z
-        B Z
-        B Y
-        B Y
-        A Z
-        C Y
-        B Y
-        C Y
-        B Z
-        B Y
-        C X
-        B Z
-        B Z
-        C Y
-        C Y
-        B Y
-        C Y
-        C X
-        B X
-        B Y
-        C Y
-        B Y
-        B X
-        C X
-        B Y
-        A Y
-        A Z
-        A Y
-        B Z
-        A Z
-        A Z
-        A Z
-        B Y
-        A Z
-        A Z
-        C Y
-        B Z
-        A Z
-        A X
-        B Y
-        C Y
-        C X
-        C X
-        A Z
-        B Z
-        B X
-        B Z
-        C X
-        B Z
-        C Y
-        C X
-        C Z
-        C X
-        B Z
-        B Z
-        B Z
-        B Z
-        A Z
-        A Z
-        C Y
-        C Z
-        C Y
-        A X
-        B Y
-        B Y
-        B Y
-        A Z
-        A Z
-        B Z
-        C Y
-        C X
-        B Y
-        C X
-        B Z
-        B Y
-        B Y
-        B Y
-        B Y
-        B Y
-        B X
-        A Z
-        A X
-        A Y
-        C X
-        B Z
-        B Y
-        B Z
-        C Y
-        A Z
-        B Z
-        B Z
-        C Y
-        B Z
-        B Z
-        C X
-        B Y
-        C X
-        B Z
-        C X
-        C Y
-        C Y
-        C X
-        A Z
-        A Z
-        B Z
-        B Y
-        C X
-        C X
-        A Y
-        A Z
-        C X
-        A X
-        A X
-        A Z
-        C Y
-        B Z
-        B Y
-        A Z
-        B Y
-        B Y
-        B Z
-        B Y
-        C Y
-        B Z
-        A X
-        B Y
-        A X
-        B Z
-        A Z
-        C X
-        A X
-        C Z
-        A Z
-        C Y
-        A X
-        B Y
-        B Z
-        B Z
-        A X
-        C Y
-        A Z
-        C X
-        A Y
-        C X
-        B Y
-        B Z
-        A X
-        B Y
-        B Y
-        A Y
-        A X
-        B Y
-        C X
-        A Y
-        B Y
-        B Y
-        C Y
-        A Z
-        B Z
-        A Z
-        B Y
-        A Z
-        C Y
-        C X
-        B Z
-        B Y
-        B Z
-        A X
-        C Y
-        C Z
-        A X
-        A X
-        C Y
-        C Y
-        A Z
-        C Y
-        C X
-        A Y
-        C Y
-        B Y
-        B X
-        B Y
-        A Z
-        C X
-        C X
-        B Y
-        A Z
-        A X
-        B Z
-        C X
-        B Y
-        B Y
-        C Z
-        A X
-        A X
-        B Z
-        C X
-        C Y
-        B Z
-        C Z
-        B Y
-        A Y
-        A Z
-        A Y
-        C Y
-        C Y
-        C Y
-        B Z
-        B Z
-        B Y
-        B Y
-        B Y
-        B Z
-        B Z
-        C X
-        A X
-        C X
-        B Y
-        B Y
-        B Y
-        C Y
-        B Y
-        B Y
-        C X
-        A Y
-        B Z
-        C X
-        B Z
-        B Y
-        A X
-        C Y
-        B Y
-        C Y
-        B Z
-        B Y
-        C Y
-        C Z
-        C Y
-        A Y
-        B Z
-        A X
-        B Z
-        A Z
-        A Z
-        A Z
-        B Y
-        A X
-        C Y
-        B Y
-        B Y
-        B Y
-        C X
-        B Y
-        A X
-        C X
-        B Y
-        C X
-        A Z
-        B Z
-        B Z
-        B Y
-        C Y
-        B Y
-        A Z
-        B Y
-        C Y
-        B Z
-        C X
-        B Y
-        B Y
-        B Z
-        C X
-        C Y
-        B Z
-        B Z
-        C Y
-        C X
-        C X
-        B Y
-        B Z
-        A X
-        C X
-        A Z
-        A Y
-        B Z
-        B Y
-        B Y
-        C Y
-        C X
-        B Y
-        B Z
-        C Y
-        C Y
-        C X
-        C X
-        B Z
-        A Z
-        B Z
-        B Y
-        C X
-        A X
-        C X
-        A Z
-        C X
-        B Z
-        C Z
-        B Y
-        C Y
-        B Y
-        C Z
-        A Z
-        B Y
-        C Z
-        A X
-        B Z
-        B X
-        C Y
-        C X
-        B Z
-        A Z
-        B Y
-        A X
-        B X
-        A Z
-        C Y
-        A Y
-        A Z
-        A X
-        C X
-        A Y
-        C X
-        B X
-        B Y
-        C Z
-        A Z
-        C X
-        B Y
-        C X
-        C X
-        B X
-        B Y
-        A Y
-        B Y
-        B Y
-        A Z
-        B Y
-        C Y
-        C X
-        B Y
-        B Y
-        B Z
-        C Y
-        B Z
-        A Z
-        A Z
-        A X
-        B Y
-        C Y
-        B Y
-        C Y
-        C Y
-        B Z
-        A X
-        C Y
-        B Z
-        C Y
-        A Y
-        B Y
-        B Y
-        B Y
-        C Y
-        A Z
-        A Z
-        B Z
-        A Z
-        C Y
-        C Y
-        B Y
-        C X
-        B Y
-        A Z
-        B Z
-        A X
-        B Z
-        B Y
-        B Z
-        A X
-        A X
-        C Y
-        A Z
-        B Z
-        C Y
-        B Z
-        C X
-        B Z
-        A X
-        B Z
-        B Z
-        C Y
-        B Y
-        B Y
-        C Y
-        B Y
-        A X
-        B Y
-        C Y
-        A Z
-        B Y
-        C X
-        A Z
-        B Z
-        A Z
-        B Z
-        C Y
-        B Y
-        B Y
-        B Y
-        C Y
-        B Y
-        B Y
-        A Z
-        B Y
-        B Z
-        C X
-        B Z
-        C X
-        C X
-        A X
-        B Z
-        C Z
-        B Z
-        A Y
-        C X
-        C X
-        A Z
-        A X
-        A Y
-        A X
-        B Y
-        B Y
-        C X
-        C Z
-        A Y
-        C Y
-        B Y
-        B Y
-        C X
-        C X
-        B Z
-        B Z
-        B Y
-        C Y
-        A Z
-        B Y
-        C X
-        C X
-        A X
-        A X
-        A Y
-        B Y
-        C X
-        A Z
-        C Z
-        C Y
-        C Y
-        C Y
-        B Y
-        C Y
-        A Y
-        A X
-        B X
-        B Y
-        B Y
-        B Y
-        B Y
-        A Z
-        B Z
-        B Y
-        B Y
-        C Y
-        A X
-        A Z
-        A Z
-        A Z
-        B Y
-        A X
-        C Y
-        C Y
-        B Y
-        B Y
-        C Y
-        A Z
-        C Y
-        A X
-        C X
-        B Z
-        B Y
-        C X
-        B Y
-        A X
-        A Z
-        C X
-        C Y
-        C Y
-        C X
-        C X
-        B Z
-        B Y
-        A Z
-        B Y
-        B Z
-        B Z
-        B Y
-        B Y
-        A X
-        C X
-        C Y
-        C X
-        A Z
-        B Z
-        B Y
-        B Y
-        C Y
-        A X
-        A X
-        C Y
-        C X
-        B Z
-        A Y
-        B Y
-        B Z
-        B Y
-        A X
-        C Y
-        B Y
-        A X
-        C X
-        B Y
-        B Y
-        A Z
-        A Z
-        A Z
-        B Y
-        B Y
-        C X
-        B Z
-        A Z
-        B Z
-        A Z
-        C X
-        B Y
-        C X
-        B Y
-        C X
-        C X
-        B Y
-        B Y
-        A Y
-        C Y
-        C Y
-        B Z
-        C X
-        B Y
-        B Y
-        A X
-        A Z
-        B Y
-        C Y
-        B Y
-        C Y
-        A X
-        C Y
-        C Y
-        B Z
-        C Y
-        A X
-        C X
-        A Z
-        C Y
-        A Z
-        C X
-        B Z
-        B Y
-        B Z
-        C Y
-        B X
-        A Z
-        C Y
-        C X
-        B Y
-        C X
-        B Z
-        A X
-        A Z
-        C X
-        B Z
-        C X
-        B Y
-        A Z
-        B Y
-        C Y
-        B Y
-        C X
-        C Y
-        B X
-        B X
-        B Y
-        B Y
-        B Y
-        B Z
-        B Y
-        C X
-        A Z
-        A Z
-        C X
-        B Y
-        B Y
-        B Y
-        A Y
-        C Y
-        B Z
-        C X
-        C Y
-        A X
-        C Y
-        B Z
-        C Y
-        B Y
-        B Y
-        B Z
-        A Z
-        A Z
-        B Y
-        A Y
-        B Z
-        A X
-        C Y
-        B Y
-        A X
-        C X
-        B Y
-        C Y
-        B Z
-        B Y
-        C X
-        A Z
-        C Y
-        A Z
-        B Y
-        C Y
-        B Y
-        C X
-        A Z
-        C Y
-        C Y
-        A Y
-        B Z
-        C X
-        C X
-        A Z
-        C Z
-        C X
-        B Y
-        C X
-        A X
-        C Y
-        C X
-        C X
-        A X
-        A Y
-        A X
-        C X
-        A X
-        A X
-        B X
-        B Y
-        C Y
-        A X
-        B Z
-        C X
-        C Y
-        B Y
-        B Z
-        C Y
-        B Z
-        B Y
-        C X
-        A X
-        B Y
-        B Z
-        C Y
-        A Z
-        C X
-        C Z
-        A X
-        A Z
-        A Z
-        B Z
-        A Z
-        B Y
-        C Y
-        C Y
-        B Z
-        C Y
-        C Y
-        C Y
-        C X
-        A X
-        B Y
-        A X
-        C X
-        C Z
-        B Y
-        A Z
-        B Y
-        C Y
-        C Y
-        B Z
-        C Y
-        C X
-        B Z
-        C Y
-        B Y
-        B Z
-        A Z
-        B Z
-        B Z
-        B Y
-        A Z
-        A Y
-        C X
-        B Y
-        A Z
-        C Y
-        B Z
-        A Z
-        B Y
-        B Y
-        C Y
-        B Y
-        B Y
-        B Y
-        C Y
-        B X
-        B Y
-        A X
-        A X
-        B Z
-        A X
-        C Y
-        A Z
-        B Y
-        B Y
-        B Z
-        A Z
-        C Y
-        C X
-        B Y
-        A Z
-        A X
-        B Y
-        C X
-        B Z
-        A X
-        C X
-        B Z
-        B Z
-        B Z
-        B X
-        A X
-        C Z
-        C X
-        C Z
-        B X
-        A Z
-        C X
-        B Y
-        C X
-        C Y
-        C Y
-        B Y
-        B Z
-        B Y
-        C Y
-        C X
-        A Z
-        C Y
-        C Y
-        C Y
-        B Z
-        A Z
-        A Y
-        C X
-        C Y
-        B Y
-        C Y
-        C Y
-        B Z
-        C Y
-        B Y
-        B Y
-        C X
-        B Z
-        B Y
-        A X
-        B Y
-        A Z
-        B Y
-        C X
-        B Y
-        C X
-        B Y
-        A Z
-        C X
-        B Y
-        C X
-        B Z
-        C X
-        B Y
-        A X
-        C X
-        C X
-        A X
-        C Y
-        A Z
-        C Y
-        B Z
-        A Z
-        A X
-        C X
-        A X
-        C Y
-        A X
-        A X
-        B Z
-        C X
-        C Y
-        A Y
-        B Z
-        B Y
-        C Y
-        B Y
-        A Y
-        C Y
-        C Y
-        B Y
-        B Y
-        B Z
-        B Z
-        C X
-        B Y
-        C X
-        A X
-        A Z
-        C Y
-        B Z
-        C Y
-        B Y
-        C X
-        C X
-        A Z
-        B Z
-        A Z
-        C X
-        B Y
-        B Z
-        C Y
-        B Y
-        A X
-        A X
-        B Y
-        B Y
-        B Y
-        A X
-        B Y
-        B Z
-        A Z
-        A X
-        A X
-        B Z
-        B Y
-        A X
-        B Z
-        A Z
-        B Y
-        B Z
-        B Z
-        B Z
-        C Y
-        C Y
-        A Z
-        B Y
-        C Y
-        A Z
-        C X
-        B Z
-        A X
-        B X
-        B Y
-        B Y
-        C Y
-        C Y
-        B Z
-        B Y
-        A Z
-        B Y
-        A X
-        B Z
-        B Y
-        C Z
-        B Y
-        B Y
-        C Y
-        B Y
-        B Y
-        A Y
-        C Y
-        A Z
-        A Y
-        B Z
-        C X
-        B Z
-        A X
-        A Z
-        A X
-        C Y
-        A Z
-        B Y
-        B Z
-        B Z
-        C Y
-        C Y
-        C Y
-        B X
-        B Y
-        B Z
-        A X
-        B Y
-        C Y
-        A X
-        A X
-        B Y
-        C Y
-        A Y
-        B Z
-        B Z
-        B Z
-        A Z
-        B Y
-        C X
-        A Z
-        C Y
-        C Y
-        B Y
-        C Y
-        C Y
-        C Y
-        C Y
-        B Y
-        B Z
-        A Z
-        B X
-        C Y
-        C X
-        C X
-        C Y
-        A Z
-        C Y
-        C X
-        B Z
-        B Y
-        A Y
-        C Z
-        B Y
-        B Y
-        B Y
-        B Y
-        C Y
-        B Y
-        C Y
-        A Z
-        B Y
-        C X
-        C Y
-        B Z
-        A X
-        C Y
-        B Y
-        B Y
-        B Y
-        A Z
-        A X
-        A X
-        C X
-        C Z
-        B Z
-        A X
-        A Z
-        A X
-        A Y
-        C Y
-        C Y
-        A Z
-        C X
-        C X
-        B X
-        B Y
-        A X
-        A Z
-        A X
-        C Y
-        B X
-        A X
-        A X
-        C X
-        A Y
-        B Z
-        A Z
-        B Y
-        A X
-        A Z
-        B Y
-        A Z
-        C Y
-        B Z
-        A Z
-        C Y
-        C X
-        B Z
-        C Y
-        B Y
-        C X
-        A Z
-        B Z
-        A X
-        A X
-        C Z
-        A X
-        C X
-        B Y
-        B Z
-        A X
-        A X
-        C Y
-        A Z
-        C Y
-        C X
-        C Y
-        B Z
-        B Y
-        C X
-        C X
-        B Z
-        B Z
-        C Y
-        A X
-        B X
-        C X
-        C Y
-        A X
-        A Z
-        B Y
-        C X
-        A Y
-        C X
-        C Y
-        A Z
-        B Y
-        B Z
-        B Y
-        C X
-        C Y
-        C X
-        C X
-        B Y
-        C X
-        C X
-        B Y
-        C Z
-        C Y
-        C Y
-        B Z
-        B Z
-        B Y
-        A X
-        B Y
-        A Z
-        A Y
-        B Y
-        C Y
-        B Z
-        B Z
-        A X
-        B Y
-        A X
-        B Y
-        A Z
-        B Y
-        C X
-        A Z
-        B Z
-        C Y
-        B Y
-        A Y
-        A X
-        C X
-        A X
-        B Y
-        B Z
-        B Z
-        C Y
-        A X
-        B Y
-        B Z
-        B Y
-        B X
-        C Z
-        B Z
-        C X
-        C Y
-        C X
-        B Z
-        C Y
-        A X
-        A X
-        C X
-        B Y
-        B X
-        B Y
-        A X
-        C Y
-        A Z
-        B Y
-        B Y
-        B Y
-        B Z
-        B Y
-        C X
-        A Z
-        C Y
-        A Z
-        B Z
-        C X
-        C Y
-        C X
-        C Y
-        A Y
-        B Z
-        B Y
-        B Z
-        C Y
-        A X
-        B Y
-        A X
-        C X
-        B X
-        C X
-        A Z
-        B Z
-        B Z
-        C Y
-        B Z""";
-
-
+        return "A Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B X\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B X\n" + //
+                "C X\n" + //
+                "B X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C Z\n" + //
+                "A X\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "A Y\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "C Y\n" + //
+                "A Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Z\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B X\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B X\n" + //
+                "C X\n" + //
+                "B X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B X\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Z\n" + //
+                "C Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "B X\n" + //
+                "C X\n" + //
+                "C Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Z\n" + //
+                "B Y\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A Y\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Z\n" + //
+                "B X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "C Z\n" + //
+                "B Y\n" + //
+                "C Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "B X\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "C Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "B X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B X\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B X\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "A Z\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B X\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "A Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "C Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "C Z\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Z\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C Z\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "A Z\n" + //
+                "A Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Z\n" + //
+                "C Y\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Z\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B X\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A Y\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "C X\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "C Z\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C Z\n" + //
+                "B Z\n" + //
+                "A Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "A Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C Z\n" + //
+                "A Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Y\n" + //
+                "A X\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B X\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "A Y\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "C Z\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "C Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B X\n" + //
+                "A X\n" + //
+                "C Z\n" + //
+                "C X\n" + //
+                "C Z\n" + //
+                "B X\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B X\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "C Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "C Z\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "A Y\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "B X\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "C Z\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B X\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "C Z\n" + //
+                "C Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "A Y\n" + //
+                "B Y\n" + //
+                "C Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Y\n" + //
+                "A Y\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B X\n" + //
+                "C Z\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "B Y\n" + //
+                "B X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "C Y\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "C X\n" + //
+                "C Y\n" + //
+                "A Y\n" + //
+                "B Z\n" + //
+                "B Y\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "A X\n" + //
+                "B Y\n" + //
+                "A X\n" + //
+                "C X\n" + //
+                "B X\n" + //
+                "C X\n" + //
+                "A Z\n" + //
+                "B Z\n" + //
+                "B Z\n" + //
+                "C Y\n" + //
+                "B Z";
     }
 }
