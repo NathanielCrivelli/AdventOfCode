@@ -1,5 +1,7 @@
 package Day3;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,14 +36,17 @@ public class Part1 {
         String two = ruck.substring(ruck.length()/2, ruck.length());
         HashSet<Character> collection = new HashSet<>();
         int total = 0;
+        String letters = "";
 
         for (int i = 0; i < one.length()-1; i++) {
             collection.add(one.charAt(i));
         }
 
         for(int i = 0; i < two.length(); i++) {
-            if (collection.contains(two.charAt(i))) {
+            if (collection.contains(two.charAt(i)) && !two.contains(letters)) {
                 total += priorityCheck(two.charAt(i));
+            } else {
+                letters += two.charAt(i);
             }
         }
 
@@ -49,18 +54,18 @@ public class Part1 {
     }
 
     public static int priorityCheck(char letter) {
-        // int value = (int) letter;
-        // if (value > 90) {
-        //     value -= 96;
-        // }
-        // else value -= 64;
-
-        // return value;
-        for (int i = 0; i < alphabet.length(); i++) {
-            if (letter == alphabet.charAt(i)) {
-                return i + 1;
-            }
+        int value = (int) letter;
+        if (value > 90) {
+            value -= 96;
+        } else {
+            value -= 38;
         }
-        return 0;
+        return value;
+        // for (int i = 0; i < alphabet.length(); i++) {
+        //     if (letter == alphabet.charAt(i)) {
+        //         return i + 1;
+        //     }
+        // }
+        // return 0;
     }
 }
