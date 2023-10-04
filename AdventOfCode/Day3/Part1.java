@@ -53,6 +53,7 @@ public class Part1 {
         return total;
     }
 
+
     public static int priorityCheck(char letter) {
         int value = (int) letter;
         if (value > 90) {
