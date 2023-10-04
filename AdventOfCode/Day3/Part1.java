@@ -43,16 +43,31 @@ public class Part1 {
         }
 
         for(int i = 0; i < two.length(); i++) {
-            if (collection.contains(two.charAt(i)) && !two.contains(letters)) {
+            if (collection.contains(two.charAt(i)) && letterCheck(two, letters)) {
                 total += priorityCheck(two.charAt(i));
-            } else {
                 letters += two.charAt(i);
+                two = two.substring(1, two.length());
+            } else {
+                two = two.substring(1, two.length());
             }
         }
 
         return total;
     }
 
+    public static boolean letterCheck(String string, String check) {
+        boolean torf = true;
+        for (int i = 0; i < string.length(); i++) {
+            for (int j = 0; j < check.length(); j++) {
+                if (string.indexOf(check.charAt(i)) != -1) {
+                    torf = true;
+                } else {
+                    torf = false;
+                }
+            }
+        }
+        return torf;
+    }
 
     public static int priorityCheck(char letter) {
         int value = (int) letter;
