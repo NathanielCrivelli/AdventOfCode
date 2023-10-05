@@ -1,15 +1,14 @@
 package Day4;
 
-import java.util.ArrayList;
-
-public class part1 {
+public class Part1 {
     protected static String ipt = Input.GetInput4();
     private static String temp = "";
     private static int currentBegin = 0, currentEnd = -1;
 
     private static int[][] arr = new int[2][2];
 
-    public static void main(String args[]){
+    public static void main(String[] args){
+        System.out.println("start");
         loopers();
     }
 
@@ -37,6 +36,7 @@ public class part1 {
             if(segment.charAt(i) == '\n'){
                 temp = segment.substring(previous, i);
                 arr[0][0] = getInts(temp);
+                System.out.println(arr[0][0]);
                 previous=i+1;
             }
         }
@@ -46,4 +46,5 @@ public class part1 {
     private static int getInts(String segmentSegment){
         return Integer.parseInt(segmentSegment);
     }
+    
 }

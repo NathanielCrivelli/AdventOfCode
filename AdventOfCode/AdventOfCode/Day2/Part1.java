@@ -2,8 +2,7 @@ package Day2;
 
 import java.util.HashMap;
 
-public class part2 {
-
+public class Part1 {
     private static int pointTotal = 0;
     private static String temper = "";
 
@@ -17,17 +16,17 @@ public class part2 {
     }
 
     private static void setMap(){
-        points.put("A X", 3);
-        points.put("A Y", 1+3);
-        points.put("A Z", 2+6);
+        points.put("A X", 1+3);
+        points.put("A Y", 2+6);
+        points.put("A Z", 3);
 
         points.put("B X", 1);
-        points.put("B Y", 3+2);
-        points.put("B Z", 6+3);
+        points.put("B Y", 2+3);
+        points.put("B Z", 3+6);
 
-        points.put("C X", 2);
-        points.put("C Y", 3+3);
-        points.put("C Z", 6+1);
+        points.put("C X", 1+6);
+        points.put("C Y", 2);
+        points.put("C Z", 3+3);
     }
 
 
@@ -42,9 +41,9 @@ public class part2 {
     }
     //tie = 3; win = 6
 
-    //rock = A,X 1 : lose
-    //paper = B,Y 2 : tie
-    //scissors = C,Z 3 : win
+    //rock = A,X 1
+    //paper = B,Y 2 
+    //scissors = C,Z 3
     private static String input() {
         return "A Z\n" + //
                 "A Z\n" + //

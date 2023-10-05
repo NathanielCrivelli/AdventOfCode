@@ -1002,9 +1002,6 @@ public class Input {
                 "1-2,1-97\n" + //
                 "2-92,2-86\n" + //
                 "50-50,50-87";
-
-        s = s.replace(',','\n');
-        System.out.println(s);
         return s;
     }
 }
