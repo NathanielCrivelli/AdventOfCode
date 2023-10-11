@@ -372,11 +372,5 @@ public class Part1 {
             value -= 38;
         }
         return value;
-        // for (int i = 0; i < alphabet.length(); i++) {
-        //     if (letter == alphabet.charAt(i)) {
-        //         return i + 1;
-        //     }
-        // }
-        // return 0;
     }
 }
