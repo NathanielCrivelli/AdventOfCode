@@ -1,122 +1,55 @@
 package Day5;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
-public class Part1 {
+public class Part1 {   
+    private static String testboard = "    [D]    \n" + //
+            "[N] [C]    \n" + //
+            "[Z] [M] [P]";
     private static String testcommand = "move 1 from 2 to 1\n" + //
             "move 3 from 1 to 3\n" + //
             "move 2 from 2 to 1\n" + //
             "move 1 from 1 to 2";
-    private static ArrayList[] arr = new ArrayList[3];
+    private static ArrayList<Stack> arr = new ArrayList<>();
     private static int row = 0;
     private static String count = "";
     private static int ogPos;
     private static int newPos;
     public static void main(String args[]) {
-        row = 0;
-        for (int i = 0; i < testcommand.length(); i++) {
-            if (row == 5 && testcommand.charAt(i+1) != ' ') {
-                count += testcommand.charAt(i);
-            } else if (row == 5 && testcommand.charAt(i+1) == ' ') {
-                count += testcommand.charAt(i);
-                row++;
-            } else if (row == 11) {
-                ogPos = testcommand.charAt(i);
-            } else if (row == 14) {
-                newPos = testcommand.charAt(i);
-            } else if (testcommand.charAt(i) == '\n') {
-                row = 0;
-                newPos = 0;
-                ogPos = 0;
-            } else {
-                row++;
+        int i = testboard.length();
+        for (; i < 0; i--) {
+            if (testboard.charAt(i+1) == ']' && testboard.charAt(i-1) == '[') {
+                arr.add(0, new Stack<Character>());
+                arr.get(0).push(testboard.charAt(i));
             }
         }
-    }
-
-    public static int arrCheck(int space) {
-        if (space == 1) {
-            return 0;
-        } else if (space == 4) {
-            return 1;
-        } else if (space == 9) {
-            return 2;
+        int s = arr.size(); //counter for what column
+        int c = 0; //counter to check if empty space
+        for (; i < 0; i--) {
+            if (testboard.charAt(i+1) == ']' && testboard.charAt(i-1) == '[') {
+                arr.get(s).push(testboard.charAt(i));
+                c++;
+                s--;
+            } else if (c == 3 && testboard.charAt(i) != ']') {
+                s--;
+                c = 0;
+            } else if (testboard.charAt(i) == '\n') {
+                s = 0;
+            }
         }
-        return -1;
-    }
 
-    public static void arrChange(ArrayList<Character>[] arr, int count, int old, int newP) {
-        String charsFromArr = "";
-        for(int i = 0; i < count; i++) {
-            charsFromArr += arr[old].get(arr[old].size());
-            arr[old].remove(arr[old].size());
+        for (int j = testcommand.length(); j < 0; j--) {
+            String current = testcommand.substring(j-18, j);
+
         }
     }
 
-    public static void boardMake(ArrayList<Character>[] arr) {
-        arr[0].add('Q');
-        arr[0].add('W');
-        arr[0].add('P');
-        arr[0].add('S');
-        arr[0].add('Z');
-        arr[0].add('R');
-        arr[0].add('H');
-        arr[0].add('D');
+    public static void boardStacks(ArrayList<Stack> arr, int col, String input, String board) {
+        for(int i = 0; i < board.length(); i++) {
 
-        arr[1].add('V');
-        arr[1].add('B');
-        arr[1].add('R');
-        arr[1].add('W');
-        arr[1].add('Q');
-        arr[1].add('H');
-        arr[1].add('F');
-        
-        arr[2].add('C');
-        arr[2].add('V');
-        arr[2].add('S');
-        arr[2].add('H');
-        
-        arr[3].add('H');
-        arr[3].add('F');
-        arr[3].add('G');
-
-        arr[4].add('P');
-        arr[4].add('G');
-        arr[4].add('J');
-        arr[4].add('B');
-        arr[4].add('Z');
-
-        arr[5].add('Q');
-        arr[5].add('T');
-        arr[5].add('J');
-        arr[5].add('H');
-        arr[5].add('W');
-        arr[5].add('F');
-        arr[5].add('L');
-
-        arr[6].add('Z');
-        arr[6].add('T');
-        arr[6].add('W');
-        arr[6].add('D');
-        arr[6].add('L');
-        arr[6].add('V');
-        arr[6].add('J');
-        arr[6].add('N');
-
-        arr[7].add('D');
-        arr[7].add('T');
-        arr[7].add('Z');
-        arr[7].add('C');
-        arr[7].add('J');
-        arr[7].add('G');
-        arr[7].add('H');
-        arr[7].add('F');
-
-        arr[8].add('W');
-        arr[8].add('P');
-        arr[8].add('V');
-        arr[8].add('M');
-        arr[8].add('B');
-        arr[8].add('H');
+        }
     }
+
+    public static void arrChange(int count, int old, int newP) {}
 }
