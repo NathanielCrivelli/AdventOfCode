@@ -13,43 +13,68 @@ public class Part1 {
             "move 1 from 1 to 2";
     private static ArrayList<Stack> arr = new ArrayList<>();
     private static int row = 0;
-    private static String count = "";
+    private static int count;
     private static int ogPos;
     private static int newPos;
     public static void main(String args[]) {
-        int i = testboard.length();
-        for (; i < 0; i--) {
+        int i = testboard.length() -2;
+        for (;i > 0; i--) {
+            if (testboard.charAt(i) == '\n') {
+                break;
+            }
             if (testboard.charAt(i+1) == ']' && testboard.charAt(i-1) == '[') {
                 arr.add(0, new Stack<Character>());
                 arr.get(0).push(testboard.charAt(i));
             }
         }
-        int s = arr.size(); //counter for what column
+        i--;
+        int s = arr.size() -1; //counter for what column
         int c = 0; //counter to check if empty space
-        for (; i < 0; i--) {
+        for (; i > 0; i--) {
             if (testboard.charAt(i+1) == ']' && testboard.charAt(i-1) == '[') {
+                System.out.println(testboard.charAt(i) + Integer.toString(s));
                 arr.get(s).push(testboard.charAt(i));
-                c++;
-                s--;
-            } else if (c == 3 && testboard.charAt(i) != ']') {
-                s--;
                 c = 0;
+                s--;
+            } else if (c == 3) {
+                c = 0;
+                s--;
             } else if (testboard.charAt(i) == '\n') {
-                s = 0;
+                s = 2;
+            } else {
+                c++;
             }
         }
 
-        for (int j = testcommand.length(); j < 0; j--) {
-            String current = testcommand.substring(j-18, j);
+        for (int j = testcommand.length(); j > 0; j--) {
+            if (testcommand.charAt(i) == '\n') {
+                String current = testcommand.substring(j-18, j);
+                if (current.charAt(5) != ' ') {
+                    count = Integer.parseInt(current.substring(4,6));
+                    ogPos = Integer.parseInt(current.substring(13,14));
+                    newPos = Integer.parseInt(current.substring(18,19));
+                    System.out.println(count + ogPos + newPos);
+                } else {
+                    count = Integer.parseInt(current.substring(4,5));
+                    ogPos = Integer.parseInt(current.substring(12, 13));
+                    newPos = Integer.parseInt(current.substring(17, 18));
+                    System.out.println(count + ogPos + newPos);
+                }
+            }
+            arrChange(count, ogPos, newPos);
+        }
 
+        for (int o = 0; o < arr.size(); o++) {
+            System.out.println(arr.get(o).peek() + " S");
         }
     }
 
-    public static void boardStacks(ArrayList<Stack> arr, int col, String input, String board) {
-        for(int i = 0; i < board.length(); i++) {
+    public static void arrChange(int count, int old, int newP) {
+        for (; count > 0; count--) {
+            Object top = arr.get(old).peek();
 
+            arr.get(newP).push(top);
+            arr.get(old).pop();
         }
     }
-
-    public static void arrChange(int count, int old, int newP) {}
 }
