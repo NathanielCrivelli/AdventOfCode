@@ -20,7 +20,7 @@ public class Parts {
 
     public static void main(String args[]){
         eventLoop();
-        testerMethod();
+        //testerMethod();
     }
 
     private static void eventLoop(){
@@ -54,21 +54,22 @@ public class Parts {
     private static void lineLoop(String s){
         for (int i=0; i < s.length() - 1; i++){
             //check for cd
-            if(i < s.length()-2 && s.charAt(i) == 'c' && s.charAt(i+1) == 'd'){
+            if(i < s.length()-1 && s.charAt(i) == 'c' && s.charAt(i+1) == 'd'){
 
                 shouldAddInts = false;
-
-                curDir = s.substring(i+3, s.length()-1);
+                curDir = s.substring(i+3, s.length());
 
                 //cd up
-                if (curDir == ".."){
+                if (curDir.equals("..")){
                     path.remove(path.size()-1);
                     curDir = path.get(path.size()-1);
                 }
                 // cd home
-                else if (curDir == "/"){
+                else if (curDir.equals("/")){
                     path.clear();
                     path.add(curDir);
+                    dirsInDir.put(curDir, new ArrayList<String>());
+                    dirSize.put(curDir, 0);
                 }
                 else{
                     path.add(curDir);
@@ -78,24 +79,25 @@ public class Parts {
             }
 
             //check for ls
-            if(i < s.length()-2 && s.charAt(i) == 'l' && s.charAt(i+1) == 's'){
+            if(i < s.length()-1 && s.charAt(i) == 'l' && s.charAt(i+1) == 's'){
                 shouldAddInts = true;
             }
 
             //check for dir and add to dirsInDir
-            if(i < s.length()-3 && s.charAt(i) == 'd' && s.charAt(i+1) == 'i' && s.charAt(i+2) == 'r'){
+            if(i < s.length()-2 && s.charAt(i) == 'd' && s.charAt(i+1) == 'i' && s.charAt(i+2) == 'r'){
                 dirsInDir.get(curDir).add(s.substring(i+4, s.length()));
             }
 
             //check for file
             if(isNumber(s.charAt(i))){
                 dirSize.computeIfPresent(curDir, (key, val) -> val + makeInteger(s));
+                break;
             }
 
             //add nums
             if(shouldAddInts && s.charAt(i) == '$'){
                 fileSize = dirSize.get(curDir);
-
+                
                 for (String string : path) {
                     dirSize.computeIfPresent(string, (key, val) -> val + fileSize);
                 }
@@ -108,7 +110,7 @@ public class Parts {
 
         for (int i =0; i<s.length()-1; i++){
             if(!isNumber(s.charAt(i))){
-                composite = s.substring(0, i-1);
+                composite = s.substring(0, i);
                 break;
             }
         }
@@ -142,9 +144,13 @@ public class Parts {
         return false;
     }
 
-
     private static void testerMethod(){
-        dirSize.forEach((key, val) -> {System.out.println("directory: " + key + "\nSIZE: " + val + "\n" + "\n");});
+        dirSize.forEach((key, val) -> {System.out.println("directory: " + key + "\nSIZE: " + val + "\n");});
+    }
+
+    private static void kms(){
+        for (String string : path) {
+            System.out.println(string + dirSize.get(string));
+        }
     }
 }
-
