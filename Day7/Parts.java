@@ -5,28 +5,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Parts {
-    private static String inpt = Input.testInput();
-    private static int currentBegin = 0, currentEnd = -1, answer=0, fileSize=0; 
+    private static String inpt = Input.getInput7();
+    private static int currentBegin = 0, currentEnd = -1, answer=0, fileSize=0, cutOff = 100000; 
 
-    private static Map<String, ArrayList<String>> dirsInDir = new HashMap<String, ArrayList<String>>();
     private static Map<String, Integer> dirSize = new HashMap<String, Integer>();
     private static ArrayList<String> path = new ArrayList<String>();
 
     private static String currentLine = "";
-    private static String prevDir = "/";
     private static String curDir = "/";
 
     private static boolean shouldAddInts = false;
 
     public static void main(String args[]){
         eventLoop();
-        testerMethod();
+        addUpp();
+        System.out.println(answer);
     }
-
+    
     private static void eventLoop(){
         for (int i=0; i <inpt.length(); i++){
             if(inpt.charAt(i) == '\n'){
-                prevDir = curDir;
 
                 currentBegin = currentEnd+1;
                 currentEnd = i;
@@ -68,24 +66,17 @@ public class Parts {
                 else if (curDir.equals("/")){
                     path.clear();
                     path.add(curDir);
-                    dirsInDir.put(curDir, new ArrayList<String>());
                     dirSize.put(curDir, 0);
                 }
                 else{
                     path.add(curDir);
                     dirSize.put(curDir, 0);
-                    dirsInDir.put(curDir, new ArrayList<String>());
                 }
             }
 
             //check for ls
             if(i < s.length()-1 && s.charAt(i) == 'l' && s.charAt(i+1) == 's'){
                 shouldAddInts = true;
-            }
-
-            //check for dir and add to dirsInDir
-            if(i < s.length()-2 && s.charAt(i) == 'd' && s.charAt(i+1) == 'i' && s.charAt(i+2) == 'r'){
-                dirsInDir.get(curDir).add(s.substring(i+4, s.length()));
             }
 
             //check for file
@@ -109,7 +100,7 @@ public class Parts {
 
     private static int makeInteger(String s){
         String composite = "";
-
+        
         for (int i =0; i<s.length()-1; i++){
             if(!isNumber(s.charAt(i))){
                 composite = s.substring(0, i);
@@ -146,13 +137,15 @@ public class Parts {
         return false;
     }
 
-    private static void testerMethod(){
-        dirSize.forEach((key, val) -> {System.out.println("directory: " + key + "\nSIZE: " + val + "\n");});
+    private static void addUpp(){
+        dirSize.forEach((key, val) -> {
+                    if(val <= cutOff){
+                        answer += val;
+                    }
+                });
     }
 
-    private static void kms(){
-        for (String string : path) {
-            System.out.println(string + dirSize.get(string));
-        }
+    private static void testerMethod(){
+        dirSize.forEach((key, val) -> {System.out.println("directory: " + key + "\nSIZE: " + val + "\n");});
     }
 }

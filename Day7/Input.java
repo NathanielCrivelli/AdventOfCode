@@ -25,10 +25,10 @@ public class Input {
                 "8033020 d.log\n" + //
                 "5626152 d.ext\n" + //
                 "7214296 k\n" + //
-                "$\n";
+                "$ \n";
     }
 
-    public String getInput7(){
+    public static String getInput7(){
         return "$ cd /\n" + //
                 "$ ls\n" + //
                 "53302 chvtw.czb\n" + //
@@ -991,6 +991,6 @@ public class Input {
                 "$ cd htgbz\n" + //
                 "$ ls\n" + //
                 "75079 nsdgz.vlj\n" + //
-                "$\n";
+                "$ \n";
     }
 }
