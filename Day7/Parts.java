@@ -20,7 +20,7 @@ public class Parts {
 
     public static void main(String args[]){
         eventLoop();
-        //testerMethod();
+        testerMethod();
     }
 
     private static void eventLoop(){
@@ -99,7 +99,9 @@ public class Parts {
                 fileSize = dirSize.get(curDir);
                 
                 for (String string : path) {
-                    dirSize.computeIfPresent(string, (key, val) -> val + fileSize);
+                    if(string != curDir){
+                        dirSize.computeIfPresent(string, (key, val) -> val + fileSize);
+                    }
                 }
             }
         }
