@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Parts {
-    private static String inpt = Input.getInput7();
-    private static int currentBegin = 0, currentEnd = -1, answer=0, fileSize=0, cutOff = 100000; 
+    private static String inpt = Input.testInput();
+    private static int currentBegin = 0, currentEnd = -1, answer=0, fileSize=0, cutOff = 100000, maxOff = 30000000, minger = 2147483647; 
 
     private static Map<String, Integer> dirSize = new HashMap<String, Integer>();
     private static ArrayList<String> path = new ArrayList<String>();
@@ -19,7 +19,8 @@ public class Parts {
     public static void main(String args[]){
         eventLoop();
         addUpp();
-        System.out.println(answer);
+        thingy();
+        System.out.println(minger);
     }
     
     private static void eventLoop(){
@@ -55,20 +56,15 @@ public class Parts {
             if(i < s.length()-1 && s.charAt(i) == 'c' && s.charAt(i+1) == 'd'){
 
                 shouldAddInts = false;
-                curDir = s.substring(i+3, s.length());
+                String curDirAdd = s.substring(i+3, s.length());
 
                 //cd up
-                if (curDir.equals("..")){
+                if (curDirAdd.equals("..")){
                     path.remove(path.size()-1);
                     curDir = path.get(path.size()-1);
                 }
-                // cd home
-                else if (curDir.equals("/")){
-                    path.clear();
-                    path.add(curDir);
-                    dirSize.put(curDir, 0);
-                }
                 else{
+                    curDir += curDirAdd;
                     path.add(curDir);
                     dirSize.put(curDir, 0);
                 }
@@ -141,6 +137,13 @@ public class Parts {
         dirSize.forEach((key, val) -> {
                     if(val <= cutOff){
                         answer += val;
+                    }
+                });
+    }
+    private static void thingy(){
+        dirSize.forEach((key, val) -> {
+                    if(val >= (cutOff - answer)){
+                        minger = Math.min(val, minger);
                     }
                 });
     }
