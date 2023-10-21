@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Parts {
-    private static String inpt = Input.testInput();
+    private static String inpt = Input.getInput7();
     private static int currentBegin = 0, currentEnd = -1, answer=0, fileSize=0, cutOff = 100000, maxOff = 30000000, minger = 2147483647; 
 
     private static Map<String, Integer> dirSize = new HashMap<String, Integer>();
     private static ArrayList<String> path = new ArrayList<String>();
 
     private static String currentLine = "";
-    private static String curDir = "/";
+    private static String curDir = "";
 
     private static boolean shouldAddInts = false;
 
@@ -142,7 +142,7 @@ public class Parts {
     }
     private static void thingy(){
         dirSize.forEach((key, val) -> {
-                    if(val >= (cutOff - answer)){
+                    if(val >= (maxOff -70000000 + dirSize.get("/"))){
                         minger = Math.min(val, minger);
                     }
                 });
